@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, sans-serif;
+
+  /* Primary: deep blacks */
+  --color-ink-950: #050506;
+  --color-ink-900: #09090b;
+  --color-ink-850: #0e0e11;
+  --color-ink-800: #131317;
+  --color-ink-750: #18181d;
+  --color-ink-700: #1e1e24;
+  --color-ink-600: #2a2a32;
+  --color-ink-500: #3a3a44;
+  --color-ink-400: #5d5d6a;
+  --color-ink-300: #8e8e9b;
+  --color-ink-200: #bdbdc7;
+  --color-ink-100: #ececf1;
+
+  /* Secondary: orange */
+  --color-brand-200: #ffd7b5;
+  --color-brand-300: #ffbb85;
+  --color-brand-400: #ff9a4d;
+  --color-brand-500: #ff7a1a;
+  --color-brand-600: #ef6400;
+  --color-brand-700: #c24f00;
+
+  --animate-fade-up: fade-up 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-fade-in: fade-in 0.3s ease-out both;
+  --animate-pop: pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+  --animate-pulse-ring: pulse-ring 2.2s ease-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-slide-in: slide-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-glow: glow 2.8s ease-in-out infinite;
+  --animate-confetti: confetti 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+  --animate-wiggle: wiggle 0.5s ease-in-out;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pop {
+    0% { opacity: 0; transform: scale(0.6); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgb(255 122 26 / 0.45); }
+    80%, 100% { box-shadow: 0 0 0 16px rgb(255 122 26 / 0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateX(18px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes rise {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+  @keyframes glow {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+  }
+  @keyframes confetti {
+    0% { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg); }
+    100% { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rot)); }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-8deg); }
+    75% { transform: rotate(8deg); }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-ink-900);
+  }
+  body {
+    @apply min-h-dvh bg-ink-900 font-sans text-ink-100 antialiased;
+  }
+  ::selection {
+    background: rgb(255 122 26 / 0.35);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ink-600) transparent;
+  }
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  }
+  .glow-top {
+    background: radial-gradient(55% 60% at 50% 0%, rgb(255 122 26 / 0.16), transparent 70%);
+  }
+  /* A card with a soft gradient border and an inner highlight. */
+  .surface {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.035), rgb(255 255 255 / 0.01)) padding-box,
+      linear-gradient(180deg, rgb(255 255 255 / 0.11), rgb(255 255 255 / 0.03)) border-box;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 20px 50px -30px rgb(0 0 0 / 0.8);
+  }
+  .surface-brand {
+    background:
+      linear-gradient(180deg, rgb(255 122 26 / 0.09), rgb(255 122 26 / 0.02)) padding-box,
+      linear-gradient(180deg, rgb(255 122 26 / 0.5), rgb(255 122 26 / 0.08)) border-box;
+    border: 1px solid transparent;
+  }
+  .text-gradient {
+    background: linear-gradient(100deg, var(--color-brand-300), var(--color-brand-500) 45%, var(--color-brand-600));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .shimmer {
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.07), transparent);
+    background-size: 200% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
